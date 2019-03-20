@@ -8,7 +8,7 @@
 
 GUID=$1
 echo "Removing all Projects for GUID=$GUID"
-oc delete project $GUID-mics-tools
+oc delete project $GUID-tools
 oc delete project $GUID-dev
 oc delete project $GUID-test
 oc delete project $GUID-prod
