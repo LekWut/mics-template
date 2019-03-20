@@ -30,7 +30,25 @@ echo "Setting up Nexus in project $GUID-tools"
 
 # To be Implemented by Student
 oc project $GUID-tools
-oc new-app -f ./Infrastructure/templates/nexus.yaml --param NEXUS_LIMIT_MEMORY=2Gi --param NEXUS_LIMIT_CPU="2" --param NEXUS_REQUEST_MEMORY=1Gi --param NEXUS_REQUEST_CPU=500m --param NEXUS_PERSISTENT_VOLUME_CLAIM_SIZE=4Gi
+oc new-app sonatype/nexus3:latest
+oc expose svc nexus3
+oc rollout pause dc nexus3
+oc patch dc nexus3 --patch='{ "spec": { "strategy": { "type": "Recreate" }}}'
+oc set resources dc nexus3 --limits=memory=2Gi,cpu=2 --requests=memory=1Gi,cpu=500m
+echo "apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nexus-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi" | oc create -f -
+
+oc set volume dc/nexus3 --add --overwrite --name=nexus3-volume-1 --mount-path=/nexus-data/ --type persistentVolumeClaim --claim-name=nexus-pvc
+oc rollout resume dc nexus3
+#oc new-app -f ./Infrastructure/templates/nexus.yaml --param NEXUS_LIMIT_MEMORY=2Gi --param NEXUS_LIMIT_CPU="2" --param NEXUS_REQUEST_MEMORY=1Gi --param NEXUS_REQUEST_CPU=500m --param NEXUS_PERSISTENT_VOLUME_CLAIM_SIZE=4Gi
  while : ; do
    echo "Checking if Nexus is Ready..."
    oc get pod -n ${GUID}-tools|grep 'nexus3\-1\-'|grep -v deploy|grep "1/1"
