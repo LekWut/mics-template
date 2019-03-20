@@ -30,7 +30,7 @@ echo "Setting up Nexus in project $GUID-tools"
 
 # To be Implemented by Student
 oc project $GUID-tools
-oc new-app -f ./Infrastructure/templates/nexus.yaml --param NEXUS_LIMIT_MEMORY=2Gi --param NEXUS_LIMIT_CPU="2" --param NEXUS_REQUEST_MEMORY=1Gi --param NEXUS_REQUEST_CPU=500m --param NEXUS_PERSISTENT_VOLUME_CLAIM_SIZE=4Gi -n ${GUID}-nexus
+oc new-app -f ./Infrastructure/templates/nexus.yaml --param NEXUS_LIMIT_MEMORY=2Gi --param NEXUS_LIMIT_CPU="2" --param NEXUS_REQUEST_MEMORY=1Gi --param NEXUS_REQUEST_CPU=500m --param NEXUS_PERSISTENT_VOLUME_CLAIM_SIZE=4Gi
  while : ; do
    echo "Checking if Nexus is Ready..."
    oc get pod -n ${GUID}-nexus|grep '\-1\-'|grep -v deploy|grep "1/1"
