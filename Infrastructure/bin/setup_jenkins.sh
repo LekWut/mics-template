@@ -27,9 +27,9 @@ echo "Setting up Jenkins in project ${GUID}-tools"
 # * CLUSTER: the base url of the cluster used (e.g. na39.openshift.opentlc.com)
 
 # To be Implemented by Student
-oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=8Gi --param VOLUME_CAPACITY=4Gi --param DISABLE_ADMINISTRATIVE_MONITORS=true -n ${GUID}-jenkins
+oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=8Gi --param VOLUME_CAPACITY=4Gi --param DISABLE_ADMINISTRATIVE_MONITORS=true -n ${GUID}-tools
 oc rollout pause dc jenkins   -n ${GUID}-tools
-oc set resources dc jenkins   --limits=memory=4Gi,cpu=2 --requests=memory=2Gi,cpu=1 -n ${GUID}-jenkins
+oc set resources dc jenkins   --limits=memory=4Gi,cpu=2 --requests=memory=2Gi,cpu=1 -n ${GUID}-tools
 oc rollout resume dc jenkins  -n ${GUID}-tools
 oc new-build  -D $'FROM docker.io/openshift/jenkins-agent-maven-35-centos7:v3.11\n
       USER root\nRUN yum -y install skopeo && yum clean all\n
