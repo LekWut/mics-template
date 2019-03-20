@@ -29,7 +29,7 @@ echo "Setting up Nexus in project $GUID-nexus"
 # oc new-app -f ../templates/nexus.yaml --param .....
 
 # To be Implemented by Student
-oc project $GUID-mics-tools
+oc project $GUID-tools
 oc new-app -f ./Infrastructure/templates/nexus.yaml --param NEXUS_LIMIT_MEMORY=2Gi --param NEXUS_LIMIT_CPU="2" --param NEXUS_REQUEST_MEMORY=1Gi --param NEXUS_REQUEST_CPU=500m --param NEXUS_PERSISTENT_VOLUME_CLAIM_SIZE=4Gi -n ${GUID}-nexus
  while : ; do
    echo "Checking if Nexus is Ready..."
