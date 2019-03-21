@@ -40,6 +40,24 @@ items:
 - kind: "BuildConfig"
   apiVersion: "v1"
   metadata:
+    name: "myboutique-commons-pipeline"
+  spec:
+    source:
+      type: "Git"
+      git:
+        uri: https://github.com/LekWut/myboutique-commons.git
+    strategy:
+      type: "JenkinsPipeline"
+      jenkinsPipelineStrategy:
+        jenkinsfilePath: Jenkinsfile
+kind: List
+metadata: []" | oc create -f - -n ${GUID}-tools
+      
+echo "apiVersion: v1
+items:
+- kind: "BuildConfig"
+  apiVersion: "v1"
+  metadata:
     name: "product-serive-pipeline"
   spec:
     source:
