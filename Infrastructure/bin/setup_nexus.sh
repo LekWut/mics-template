@@ -51,7 +51,7 @@ oc rollout resume dc nexus3
 #oc new-app -f ./Infrastructure/templates/nexus.yaml --param NEXUS_LIMIT_MEMORY=2Gi --param NEXUS_LIMIT_CPU="2" --param NEXUS_REQUEST_MEMORY=1Gi --param NEXUS_REQUEST_CPU=500m --param NEXUS_PERSISTENT_VOLUME_CLAIM_SIZE=4Gi
  while : ; do
    echo "Checking if Nexus is Ready..."
-   oc get pod -n ${GUID}-tools|grep 'nexus3\-1\-'|grep -v deploy|grep "1/1"
+   oc get pod -n ${GUID}-tools|grep 'nexus3\-2\-'|grep -v deploy|grep "1/1"
    [[ "$?" == "1" ]] || break
    echo "$?" == "1"
    echo "...no. Sleeping 10 seconds."
