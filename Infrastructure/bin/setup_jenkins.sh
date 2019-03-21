@@ -45,7 +45,7 @@ items:
     source:
       type: "Git"
       git:
-        uri: https://gitlab.yipintsoi.com/akkarawu/myboutique-productservice.git
+        uri: https://github.com/akkarapol/myboutique-productservice.git
     strategy:
       type: "JenkinsPipeline"
       jenkinsPipelineStrategy:
